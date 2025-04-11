@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from './auth-provider';
 import { FaRegUser, FaUsers } from 'react-icons/fa6';
 
-export function Sidebar() {
+export function Sidebar({ setShowSidebar }: { setShowSidebar?: (show: boolean) => void }) {
   const pathname = usePathname();
   const { logout } = useAuth();
 
@@ -32,6 +32,7 @@ export function Sidebar() {
             <Link
               key={route.href}
               href={route.href}
+              onClick={() => setShowSidebar && setShowSidebar(false)}
               className={cn(
                 'text-sm group flex p-3 w-full justify-start font-medium cursor-pointer text-light hover:bg-primary/20 rounded-[6px] transition',
                 pathname === route.href && 'bg-primary hover:bg-primary/90'

@@ -18,6 +18,7 @@ export default function TeamsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBySpots, setSortBySpots] = useState(false);
   const { user } = useAuth();
+  const [joinedTeamId, setJoinedTeamId] = useState<string | null>(user?.team?.id || null);
 
   const teamsPerPage = 6;
 
@@ -62,6 +63,7 @@ export default function TeamsPage() {
       return;
     }
   
+    // Update teams
     const updatedTeams = teams.map((t) => {
       if (t.id === team.id) {
         return {
@@ -72,14 +74,12 @@ export default function TeamsPage() {
       }
       return t;
     });
-  
-    const updatedUser = { ...parsedUser, team: team };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-  
+    
+    setJoinedTeamId(team.id);
     setTeams(updatedTeams);
     alert(`Successfully joined ${team.name}`);
-    window.location.reload();
   };
+  
   
 
   return (
@@ -161,7 +161,7 @@ export default function TeamsPage() {
               <p className="text-xs">
                 {team.currentMembers} / {team.maxMembers} members
               </p>
-              {user && user?.team?.id === team.id ? (
+              {joinedTeamId === team.id ? (
                 <span className="text-sm font-medium text-green-500">Joined</span>
               ) : (
                 <button

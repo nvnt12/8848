@@ -35,17 +35,19 @@ export default function DashboardLayout({
             className="w-72 h-full bg-background shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            <Sidebar />
+            <Sidebar setShowSidebar={() => setShowSidebar(false)} />
           </div>
         </div>
       )}
 
-      {!showSidebar && <button
-        className="md:hidden fixed top-4 left-6 z-50 p-1 bg-dashboard text-light border border-gray-600 rounded"
-        onClick={() => setShowSidebar(true)}
-      >
-        <IoMenu className="w-6 h-6" />
-      </button>}
+      {!showSidebar && <div className="md:hidden fixed top-0 left-0 w-full z-50 px-6 py-2 bg-background">
+        <button
+          className="md:hidden p-1 bg-dashboard text-light border border-gray-600 rounded"
+          onClick={() => setShowSidebar(true)}
+        >
+          <IoMenu className="w-6 h-6" />
+        </button>
+      </div>}
 
       <main className="bg-background text-light pt-10 md:pt-0 md:pl-72 flex-1 h-full overflow-y-auto w-full">
         <div className="p-6 md:p-8">{children}</div>
